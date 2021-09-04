@@ -12,13 +12,12 @@ class UrlsController {
 
     try {
       let longUrl = decodeURI(url);
+      longUrl = addDefaultProtocol(longUrl);
 
       let urlEntity = await urlsService.getByUrl(longUrl);
 
       if (!urlEntity && longUrl) {
         const urlShort = shortid.generate();
-
-        longUrl = addDefaultProtocol(longUrl);
 
         if (isValidUrl(longUrl)) {
           urlEntity = await urlsService.create({

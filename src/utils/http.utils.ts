@@ -2,7 +2,7 @@ export function addDefaultProtocol(url: string) {
   let urlWithHttp = url.trim();
 
   if (
-    !urlWithHttp.startsWith("https://") ||
+    !urlWithHttp.startsWith("https://") &&
     !urlWithHttp.startsWith("http://")
   ) {
     urlWithHttp = `http://${urlWithHttp}`;
