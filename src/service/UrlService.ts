@@ -40,6 +40,11 @@ class UrlService {
 
     return urlEntity;
   }
+
+  async save(urlEntity: Url) {
+    const updated = this.urlsRepository.save(urlEntity);
+    return updated;
+  }
 }
 
 export { UrlService };

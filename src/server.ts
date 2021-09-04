@@ -10,8 +10,8 @@ app.use(express.json());
 
 const urlsController = new UrlsController();
 
+app.get("/shortner/:url_short", urlsController.redirectToUrl);
 app.post("/shortner/:url", urlsController.create);
-app.get("/shortner/:url_short", urlsController.getByUrlShort);
 
 app.get("/ping", (_, res) => res.json({ pong: true }));
 

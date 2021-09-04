@@ -41,6 +41,26 @@ class UrlsController {
       });
     }
   }
+
+  async redirectToUrl(request: Request, response: Response) {
+    const { url_short } = request.params;
+    const urlsService = new UrlService();
+
+    try {
+      const urlEntity = await urlsService.getByUrlShort(url_short);
+
+      if (urlEntity) {
+        urlEntity.view_count++;
+        urlsService.save(urlEntity);
+      }
+
+      return response.redirect(301, urlEntity.url);
+    } catch (err) {
+      return response.status(400).json({
+        message: err.message,
+      });
+    }
+  }
 }
 
 export { UrlsController };
