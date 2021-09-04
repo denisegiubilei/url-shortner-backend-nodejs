@@ -28,20 +28,6 @@ class UrlsController {
     }
   }
 
-  async getByUrlShort(request: Request, response: Response): Promise<Response> {
-    const { url_short } = request.params;
-    const urlsService = new UrlService();
-
-    try {
-      const urlEntity = await urlsService.getByUrlShort(url_short);
-      return response.json(urlEntity);
-    } catch (err) {
-      return response.status(400).json({
-        message: err.message,
-      });
-    }
-  }
-
   async redirectToUrl(request: Request, response: Response) {
     const { url_short } = request.params;
     const urlsService = new UrlService();
