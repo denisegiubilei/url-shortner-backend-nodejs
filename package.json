@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node src/server.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "typeorm": "ts-node node_modules/typeorm/cli.js",
+    "lint": "eslint . --ext .ts"
   },
   "repository": {
     "type": "git",
@@ -19,7 +21,10 @@
   },
   "homepage": "https://github.com/denisegiubilei/url-shortner-backend-nodejs#readme",
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
     "ejs": "^3.1.6",
+    "eslint": "^7.32.0",
     "express": "^4.17.1",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
