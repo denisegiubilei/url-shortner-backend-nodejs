@@ -30,6 +30,16 @@ class UrlService {
     return urlEntity;
   }
 
+  async list(sort: "ASC" | "DESC", limit: number) {
+    const urls = await this.urlsRepository
+      .createQueryBuilder("urls")
+      .orderBy("view_count", sort)
+      .limit(limit)
+      .getMany();
+
+    return urls;
+  }
+
   async create({ url, url_short }: UrlCreateData) {
     const urlEntity = this.urlsRepository.create({
       url,
@@ -42,8 +52,7 @@ class UrlService {
   }
 
   async save(urlEntity: Url) {
-    const updated = this.urlsRepository.save(urlEntity);
-    return updated;
+    return await this.urlsRepository.save(urlEntity);
   }
 }
 

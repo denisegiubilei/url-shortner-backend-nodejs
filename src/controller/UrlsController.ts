@@ -47,6 +47,19 @@ class UrlsController {
       });
     }
   }
+
+  async listByViews(request: Request, response: Response): Promise<Response> {
+    const urlsService = new UrlService();
+
+    try {
+      const urls = await urlsService.list("DESC", 100);
+      return response.json(urls);
+    } catch (err) {
+      return response.status(400).json({
+        message: err.message,
+      });
+    }
+  }
 }
 
 export { UrlsController };
