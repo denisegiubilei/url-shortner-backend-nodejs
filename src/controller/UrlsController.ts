@@ -1,6 +1,8 @@
 import shortid from "shortid";
 import { Request, Response } from "express";
 
+import { addDefaultProtocol, isValidUrl } from "../utils/http.utils";
+
 import { UrlService } from "../service/UrlService";
 
 class UrlsController {
@@ -9,15 +11,25 @@ class UrlsController {
     const urlsService = new UrlService();
 
     try {
-      const urlShort = shortid.generate();
+      let longUrl = decodeURI(url);
 
-      let urlEntity = await urlsService.getByUrl(url);
+      let urlEntity = await urlsService.getByUrl(longUrl);
 
-      if (!urlEntity) {
-        urlEntity = await urlsService.create({
-          url,
-          url_short: urlShort,
-        });
+      if (!urlEntity && longUrl) {
+        const urlShort = shortid.generate();
+
+        longUrl = addDefaultProtocol(longUrl);
+
+        if (isValidUrl(longUrl)) {
+          urlEntity = await urlsService.create({
+            url: longUrl,
+            url_short: urlShort,
+          });
+        } else {
+          return response.status(400).json({
+            message: "Invalid URL",
+          });
+        }
       }
 
       return response.json(urlEntity);
