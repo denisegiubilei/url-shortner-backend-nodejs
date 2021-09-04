@@ -11,6 +11,7 @@ app.use(express.json());
 const urlsController = new UrlsController();
 
 app.post("/shortner/:url", urlsController.create);
+app.get("/shortner/:url_short", urlsController.getByUrlShort);
 
 app.get("/ping", (_, res) => res.json({ pong: true }));
 

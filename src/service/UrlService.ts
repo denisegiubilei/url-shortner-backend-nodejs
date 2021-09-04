@@ -20,6 +20,16 @@ class UrlService {
     return urlEntity;
   }
 
+  async getByUrlShort(url_short: string) {
+    const urlEntity = await this.urlsRepository.findOne({ url_short });
+
+    if (!urlEntity) {
+      throw new Error(`No url was found for url_short: '${url_short}'`);
+    }
+
+    return urlEntity;
+  }
+
   async create({ url, url_short }: UrlCreateData) {
     const urlEntity = this.urlsRepository.create({
       url,
