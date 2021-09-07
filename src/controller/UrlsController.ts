@@ -51,7 +51,7 @@ class UrlsController {
         urlsService.save(urlEntity);
       }
 
-      return response.redirect(301, urlEntity.url);
+      return response.redirect(302, urlEntity.url);
     } catch (err) {
       return response.status(400).json({
         message: err.message,
